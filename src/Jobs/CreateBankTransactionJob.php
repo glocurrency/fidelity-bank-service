@@ -3,6 +3,7 @@
 namespace GloCurrency\FidelityBank\Jobs;
 
 use Money\Formatter\DecimalMoneyFormatter;
+use Illuminate\Support\Facades\App;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -56,7 +57,7 @@ class CreateBankTransactionJob implements ShouldQueue, ShouldBeUnique, ShouldBeE
      */
     public function uniqueId()
     {
-        return $this->processingItem->id;
+        return $this->processingItem->getId();
     }
 
     /**
@@ -114,7 +115,7 @@ class CreateBankTransactionJob implements ShouldQueue, ShouldBeUnique, ShouldBeE
         $targetRecipient->save();
 
         /** @var DecimalMoneyFormatter $moneyFormatter */
-        $moneyFormatter = app()->make(DecimalMoneyFormatter::class);
+        $moneyFormatter = App::make(DecimalMoneyFormatter::class);
 
         Transaction::create([
             'transaction_id' => $transaction->getId(),

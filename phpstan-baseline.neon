@@ -1,0 +1,32 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined static method GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:where\\(\\)\\.$#"
+			count: 1
+			path: src/Console/FetchTransactionsUpdateCommand.php
+
+		-
+			message: "#^Call to an undefined static method GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: src/Jobs/CreateBankTransactionJob.php
+
+		-
+			message: "#^Call to an undefined static method GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:firstWhere\\(\\)\\.$#"
+			count: 1
+			path: src/Jobs/CreateBankTransactionJob.php
+
+		-
+			message: "#^Access to an undefined property GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:\\$processingItem\\.$#"
+			count: 1
+			path: src/Listeners/UpdateProcessingItemStateSubscriber.php
+
+		-
+			message: "#^Access to an undefined property GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:\\$recipient\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+
+		-
+			message: "#^Access to an undefined property GloCurrency\\\\FidelityBank\\\\Models\\\\Transaction\\:\\:\\$sender\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+

@@ -2,11 +2,15 @@
 
 namespace GloCurrency\FidelityBank\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GloCurrency\MiddlewareBlocks\Contracts\ModelWithStateCodeInterface as MModelWithStateCodeInterface;
 use GloCurrency\FidelityBank\Models\Recipient;
 use GloCurrency\FidelityBank\FidelityBank;
+use GloCurrency\FidelityBank\Events\TransactionUpdatedEvent;
+use GloCurrency\FidelityBank\Events\TransactionCreatedEvent;
 use GloCurrency\FidelityBank\Enums\TransactionStateCodeEnum;
+use GloCurrency\FidelityBank\Database\Factories\TransactionFactory;
 use BrokeYourBike\HasSourceModel\SourceModelInterface;
 use BrokeYourBike\FidelityBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FidelityBank\Interfaces\SenderInterface;
@@ -40,13 +44,11 @@ use BrokeYourBike\BaseModels\BaseUuid;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\ProcessingItem $processingItem
- * @property-read Recipient $recipient
- * @property-read \GloCurrency\FidelityBank\Models\Sender $sender
  */
 class Transaction extends BaseUuid implements MModelWithStateCodeInterface, SourceModelInterface, TransactionInterface
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'fidelity_transactions';
 
@@ -164,5 +166,15 @@ class Transaction extends BaseUuid implements MModelWithStateCodeInterface, Sour
     public function sender()
     {
         return $this->hasOne(Sender::class, 'id', 'fidelity_sender_id');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return TransactionFactory::new();
     }
 }

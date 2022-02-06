@@ -3,6 +3,7 @@
 namespace GloCurrency\FidelityBank;
 
 use Illuminate\Support\ServiceProvider;
+use GloCurrency\FidelityBank\Console\FetchTransactionsUpdateCommand;
 use GloCurrency\FidelityBank\Config;
 use BrokeYourBike\FidelityBank\Interfaces\ConfigInterface;
 
@@ -17,6 +18,7 @@ class FidelityBankServiceProvider extends ServiceProvider
     {
         $this->registerMigrations();
         $this->registerPublishing();
+        $this->registerCommands();
     }
 
     /**
@@ -79,6 +81,20 @@ class FidelityBankServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations' => $this->app->databasePath('migrations'),
             ], 'fidelity-bank-migrations');
+        }
+    }
+
+    /**
+     * Register the package's commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                FetchTransactionsUpdateCommand::class,
+            ]);
         }
     }
 }

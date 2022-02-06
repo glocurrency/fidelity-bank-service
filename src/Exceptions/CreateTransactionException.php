@@ -48,7 +48,7 @@ final class CreateTransactionException extends \RuntimeException
     public static function noTransactionRecipient(MTransactionInterface $transaction): self
     {
         $className = $transaction::class;
-        $message = "{$className} `{$transaction->getId()}` sender not found";
+        $message = "{$className} `{$transaction->getId()}` recipient not found";
         return new static(MProcessingItemStateCodeEnum::NO_TRANSACTION_RECIPIENT, $message);
     }
 

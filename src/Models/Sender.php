@@ -5,6 +5,7 @@ namespace GloCurrency\FidelityBank\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GloCurrency\FidelityBank\Traits\PersonTrait;
+use GloCurrency\FidelityBank\Database\Factories\SenderFactory;
 use BrokeYourBike\FidelityBank\Interfaces\SenderInterface;
 use BrokeYourBike\CountryCasts\Alpha2Cast;
 use BrokeYourBike\BaseModels\BaseUuid;
@@ -40,4 +41,14 @@ class Sender extends BaseUuid implements SenderInterface
     protected $casts = [
         'country_code_alpha2' => Alpha2Cast::class . ':country_code',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return SenderFactory::new();
+    }
 }
