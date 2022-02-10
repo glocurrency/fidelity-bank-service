@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://www.github.com/glocurrency/fidelity-bank-service/compare/v0.1.1...v0.1.2) (2022-02-10)
+
+
+### Bug Fixes
+
+* use fetched `status` to get the status of transaction ([61a209f](https://www.github.com/glocurrency/fidelity-bank-service/commit/61a209fa419c006857ac9dd4e2f6499568629857))
+
 ### [0.1.1](https://www.github.com/glocurrency/fidelity-bank-service/compare/v0.1.0...v0.1.1) (2022-02-08)
 
 
