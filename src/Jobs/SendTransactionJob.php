@@ -14,7 +14,6 @@ use GloCurrency\MiddlewareBlocks\Enums\QueueTypeEnum as MQueueTypeEnum;
 use GloCurrency\FidelityBank\Models\Transaction;
 use GloCurrency\FidelityBank\Exceptions\SendTransactionException;
 use GloCurrency\FidelityBank\Enums\TransactionStateCodeEnum;
-use GloCurrency\FidelityBank\Enums\ErrorCodeFactory;
 use BrokeYourBike\FidelityBank\Enums\StatusCodeEnum;
 use BrokeYourBike\FidelityBank\Enums\ErrorCodeEnum;
 use BrokeYourBike\FidelityBank\Client;
@@ -90,7 +89,7 @@ class SendTransactionJob implements ShouldQueue, ShouldBeUnique, ShouldBeEncrypt
 
         $this->targetTransaction->error_code = $errorCode;
         $this->targetTransaction->status_code = $statusCode;
-        $this->targetTransaction->state_code = ErrorCodeFactory::getTransactionStateCode($errorCode);
+        $this->targetTransaction->state_code = TransactionStateCodeEnum::makeFromErrorCode($errorCode);
         $this->targetTransaction->error_code_description = $response->responseMessage;
         $this->targetTransaction->save();
 

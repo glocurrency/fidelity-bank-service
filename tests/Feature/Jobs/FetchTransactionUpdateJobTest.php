@@ -80,9 +80,9 @@ class FetchTransactionUpdateJobTest extends FeatureTestCase
 
         [$httpMock] = $this->mockApiFor(Client::class);
         $httpMock->append(new \GuzzleHttp\Psr7\Response(200, [], '{
-            "Status": "' . StatusCodeEnum::TRANSMIT->value . '",
-            "ResponseCode": "' . ErrorCodeEnum::PAID->value . '",
-            "ResponseMessage": "Paid"
+            "Status": "' . StatusCodeEnum::CANCELED->value . '",
+            "ResponseCode": "' . ErrorCodeEnum::IN_PROGRESS->value . '",
+            "ResponseMessage": "In Progress?"
         }'));
 
         FetchTransactionUpdateJob::dispatchSync($targetTransaction);
@@ -90,6 +90,6 @@ class FetchTransactionUpdateJobTest extends FeatureTestCase
         $targetTransaction = $targetTransaction->fresh();
         $this->assertInstanceOf(Transaction::class, $targetTransaction);
 
-        $this->assertEquals(TransactionStateCodeEnum::PAID, $targetTransaction->state_code);
+        $this->assertEquals(TransactionStateCodeEnum::CANCELED, $targetTransaction->state_code);
     }
 }

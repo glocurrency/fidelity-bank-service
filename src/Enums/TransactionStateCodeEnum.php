@@ -3,6 +3,8 @@
 namespace GloCurrency\FidelityBank\Enums;
 
 use GloCurrency\MiddlewareBlocks\Enums\ProcessingItemStateCodeEnum as MProcessingItemStateCodeEnum;
+use BrokeYourBike\FidelityBank\Enums\StatusCodeEnum;
+use BrokeYourBike\FidelityBank\Enums\ErrorCodeEnum;
 
 enum TransactionStateCodeEnum: string
 {
@@ -16,6 +18,8 @@ enum TransactionStateCodeEnum: string
     case UNEXPECTED_STATUS_CODE = 'unexpected_transaction_status';
     case PROCESSING = 'processing';
     case PAID = 'paid';
+    case FAILED = 'failed';
+    case CANCELED = 'canceled';
     case API_ERROR = 'api_error';
     case INSUFFICIENT_FUNDS = 'insufficient_funds';
     case DUPLICATE_TRANSACTION = 'duplicate_transaction';
@@ -24,6 +28,40 @@ enum TransactionStateCodeEnum: string
     case RECIPIENT_NAME_VALIDATION_FAILED = 'recipient_name_validation_failed';
     case RECIPIENT_TRANSFER_LIMIT_EXCEEDED = 'recipient_transfer_limit_exceeded';
     case RECIPIENT_DETAILS_INVALID = 'recipient_details_invalid';
+
+    public static function makeFromErrorCode(ErrorCodeEnum $errorCode): TransactionStateCodeEnum
+    {
+        return match ($errorCode) {
+            ErrorCodeEnum::PAID => self::PAID,
+            ErrorCodeEnum::INVALID_ACCOUNT => self::RECIPIENT_BANK_ACCOUNT_INVALID,
+            ErrorCodeEnum::NOT_PERMITTED => self::API_ERROR,
+            ErrorCodeEnum::TRANSACTION_LIMIT => self::RECIPIENT_TRANSFER_LIMIT_EXCEEDED,
+            ErrorCodeEnum::INSUFFICIENT_FUNDS => self::INSUFFICIENT_FUNDS,
+            ErrorCodeEnum::DUPLICATE_TRANSACTION => self::DUPLICATE_TRANSACTION,
+            ErrorCodeEnum::INVALID_RECIPIENT => self::RECIPIENT_DETAILS_INVALID,
+            ErrorCodeEnum::AUTH_FAILED => self::API_ERROR,
+            ErrorCodeEnum::SYSTEM_EXCEPTION => self::API_ERROR,
+            ErrorCodeEnum::SYSTEM_MALFUNCTION => self::API_ERROR,
+            ErrorCodeEnum::IN_PROGRESS => self::PROCESSING,
+            ErrorCodeEnum::NAME_MISMATCH => self::RECIPIENT_NAME_VALIDATION_FAILED,
+            ErrorCodeEnum::INVALID_PIN => self::API_ERROR,
+            ErrorCodeEnum::INVALID_BANK_CODE => self::RECIPIENT_BANK_CODE_INVALID,
+            ErrorCodeEnum::INVALID_BANK => self::RECIPIENT_BANK_CODE_INVALID,
+            ErrorCodeEnum::ACCOUNT_NOT_FOUND => self::RECIPIENT_BANK_ACCOUNT_INVALID,
+            ErrorCodeEnum::INVALID_ACCOUNT_STATUS => self::RECIPIENT_BANK_ACCOUNT_INVALID,
+        };
+    }
+
+    public static function makeFromStatusCode(StatusCodeEnum $statusCode): TransactionStateCodeEnum
+    {
+        return match ($statusCode) {
+            StatusCodeEnum::TRANSMIT => self::PROCESSING,
+            StatusCodeEnum::IN_PROGRESS => self::PROCESSING,
+            StatusCodeEnum::PAID => self::PAID,
+            StatusCodeEnum::CANCELED => self::CANCELED,
+            StatusCodeEnum::ERROR => self::FAILED,
+        };
+    }
 
     /**
      * Get the ProcessingItem state based on Transaction state.
@@ -41,6 +79,8 @@ enum TransactionStateCodeEnum: string
             self::UNEXPECTED_STATUS_CODE => MProcessingItemStateCodeEnum::EXCEPTION,
             self::PROCESSING => MProcessingItemStateCodeEnum::PROVIDER_PENDING,
             self::PAID => MProcessingItemStateCodeEnum::PROCESSED,
+            self::FAILED => MProcessingItemStateCodeEnum::MANUAL_RECONCILIATION_REQUIRED,
+            self::CANCELED => MProcessingItemStateCodeEnum::TRANSACTION_CANCELED_BY_PROVIDER,
             self::API_ERROR => MProcessingItemStateCodeEnum::PROVIDER_NOT_ACCEPTING_TRANSACTIONS,
             self::INSUFFICIENT_FUNDS => MProcessingItemStateCodeEnum::PROVIDER_NOT_ACCEPTING_TRANSACTIONS,
             self::DUPLICATE_TRANSACTION => MProcessingItemStateCodeEnum::EXCEPTION,

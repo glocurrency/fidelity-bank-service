@@ -4,7 +4,7 @@ namespace GloCurrency\FidelityBank\Exceptions;
 
 use GloCurrency\FidelityBank\Models\Transaction;
 use GloCurrency\FidelityBank\Enums\TransactionStateCodeEnum;
-use BrokeYourBike\FidelityBank\Enums\ErrorCodeEnum;
+use BrokeYourBike\FidelityBank\Enums\StatusCodeEnum;
 use BrokeYourBike\FidelityBank\Client;
 
 final class FetchTransactionUpdateException extends \RuntimeException
@@ -44,10 +44,10 @@ final class FetchTransactionUpdateException extends \RuntimeException
         return new static(TransactionStateCodeEnum::API_REQUEST_EXCEPTION, $message);
     }
 
-    public static function unexpectedErrorCode(string $code): self
+    public static function unexpectedStatusCode(string $code): self
     {
-        $className = ErrorCodeEnum::class;
+        $className = StatusCodeEnum::class;
         $message = "Unexpected {$className}: `{$code}`";
-        return new static(TransactionStateCodeEnum::UNEXPECTED_ERROR_CODE, $message);
+        return new static(TransactionStateCodeEnum::UNEXPECTED_STATUS_CODE, $message);
     }
 }

@@ -14,8 +14,7 @@ use GloCurrency\MiddlewareBlocks\Enums\QueueTypeEnum as MQueueTypeEnum;
 use GloCurrency\FidelityBank\Models\Transaction;
 use GloCurrency\FidelityBank\Exceptions\FetchTransactionUpdateException;
 use GloCurrency\FidelityBank\Enums\TransactionStateCodeEnum;
-use GloCurrency\FidelityBank\Enums\ErrorCodeFactory;
-use BrokeYourBike\FidelityBank\Enums\ErrorCodeEnum;
+use BrokeYourBike\FidelityBank\Enums\StatusCodeEnum;
 use BrokeYourBike\FidelityBank\Client;
 
 class FetchTransactionUpdateJob implements ShouldQueue, ShouldBeUnique, ShouldBeEncrypted
@@ -78,13 +77,13 @@ class FetchTransactionUpdateJob implements ShouldQueue, ShouldBeUnique, ShouldBe
 
         // TODO: we should consider storing error_ and other codes in the separate table
         // to maintain history of statuses
-        $errorCode = ErrorCodeEnum::tryFrom($response->responseCode);
+        $statusCode = StatusCodeEnum::tryFrom($response->status);
 
-        if (!$errorCode) {
-            throw FetchTransactionUpdateException::unexpectedErrorCode($response->responseCode);
+        if (!$statusCode) {
+            throw FetchTransactionUpdateException::unexpectedStatusCode($response->status);
         }
 
-        $this->targetTransaction->state_code = ErrorCodeFactory::getTransactionStateCode($errorCode);
+        $this->targetTransaction->state_code = TransactionStateCodeEnum::makeFromStatusCode($statusCode);
         $this->targetTransaction->save();
     }
 
