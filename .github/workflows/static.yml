@@ -17,18 +17,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: none
-          tools: composer
 
       - name: Download dependencies
-        env:
-          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer update --no-interaction --no-progress
 
       - name: Download PHPStan
