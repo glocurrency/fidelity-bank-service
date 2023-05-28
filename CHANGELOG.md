@@ -1,5 +1,20 @@
 # Changelog
 
+### [0.1.3](https://www.github.com/glocurrency/fidelity-bank-service/compare/v0.1.2...v0.1.3) (2023-05-28)
+
+
+### Bug Fixes
+
+* blocks 0 ([95f0eec](https://www.github.com/glocurrency/fidelity-bank-service/commit/95f0eeccbd665f8235ca2bbcace893fed3b3a380))
+* packagist.corg ([7a9c82d](https://www.github.com/glocurrency/fidelity-bank-service/commit/7a9c82d2f8947b21f2bc1d3821fd97df68f9c706))
+
+
+### Miscellaneous Chores
+
+* links ([7e74830](https://www.github.com/glocurrency/fidelity-bank-service/commit/7e74830a902fc01419713d78c50462ab358c2b36))
+* no badge ([ad934fc](https://www.github.com/glocurrency/fidelity-bank-service/commit/ad934fce4be16c238e41acfd9765766d642936aa))
+* update description ([3a5fd28](https://www.github.com/glocurrency/fidelity-bank-service/commit/3a5fd28ae476df9921cf2524cd467a7daab1dfc9))
+
 ### [0.1.2](https://www.github.com/glocurrency/fidelity-bank-service/compare/v0.1.1...v0.1.2) (2022-02-10)
 
 
