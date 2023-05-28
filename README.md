@@ -7,7 +7,7 @@
 Fidelity Bank service to consume with MW.
 
 ## Authors
-- [Ivan Stasiuk](https://github.com/brokeyourbike) | [Twitter](https://twitter.com/brokeyourbike) | [stasi.uk](https://stasi.uk)
+- [Ivan Stasiuk](https://github.com/brokeyourbike) | [Twitter](https://twitter.com/brokeyourbike) | [LinkedIn](https://www.linkedin.com/in/brokeyourbike) | [stasi.uk](https://stasi.uk)
 
 ## License
 [Mozilla Public License v2.0](https://github.com/glocurrency/fidelity-bank-service/blob/main/LICENSE)
