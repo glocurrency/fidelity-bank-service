@@ -42,7 +42,7 @@ class SendTransactionJobTest extends FeatureTestCase
         [$httpMock] = $this->mockApiFor(Client::class);
         $httpMock->append(new \GuzzleHttp\Psr7\Response(200, [], '{
             "Pin": "' . $fidelityTransaction->transaction_id . '",
-            "AccountNumber": "' . $this->faker->bankAccountNumber . '",
+            "AccountNumber": "' . $this->faker->bankAccountNumber() . '",
             "Status": "' . StatusCodeEnum::TRANSMIT->value . '",
             "ResponseCode": "' . ErrorCodeEnum::PAID->value . '",
             "ResponseMessage": "Request In Progress"
@@ -118,7 +118,7 @@ class SendTransactionJobTest extends FeatureTestCase
         [$httpMock] = $this->mockApiFor(Client::class);
         $httpMock->append(new \GuzzleHttp\Psr7\Response(200, [], '{
             "Pin": "' . $fidelityTransaction->transaction_id . '",
-            "AccountNumber": "' . $this->faker->bankAccountNumber . '",
+            "AccountNumber": "' . $this->faker->bankAccountNumber() . '",
             "Status": "' . StatusCodeEnum::TRANSMIT->value . '",
             "ResponseCode": "' . ErrorCodeEnum::PAID->value . '",
             "ResponseMessage": "Request In Progress"
@@ -153,7 +153,7 @@ class SendTransactionJobTest extends FeatureTestCase
         [$httpMock] = $this->mockApiFor(Client::class);
         $httpMock->append(new \GuzzleHttp\Psr7\Response(200, [], '{
             "Pin": "' . $fidelityTransaction->transaction_id . '",
-            "AccountNumber": "' . $this->faker->bankAccountNumber . '",
+            "AccountNumber": "' . $this->faker->bankAccountNumber() . '",
             "Status": "' . StatusCodeEnum::TRANSMIT->value . '",
             "ResponseCode": "' . $errorCode->value . '",
             "ResponseMessage": "Request In Progress"

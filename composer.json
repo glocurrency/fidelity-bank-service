@@ -16,7 +16,7 @@
         "brokeyourbike/country-casts-laravel": "^0.1.0",
         "brokeyourbike/fidelity-bank-api-client": "^0.4.1",
         "brokeyourbike/has-source-model": "^2.0",
-        "glocurrency/middleware-blocks": "^0.4.0",
+        "glocurrency/middleware-blocks": "^0",
         "illuminate/contracts": "^8.0|^9.0",
         "illuminate/database": "^8.0|^9.0"
     },
